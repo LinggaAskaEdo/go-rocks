@@ -1,0 +1,80 @@
+services:
+  app:
+    build: .
+    environment:
+      SECRETKEY: ${SECRETKEY}
+    ports:
+      - "8181:8181"
+    volumes:
+      - /var/log/go/app.log:/var/log/go/app.log
+    depends_on:
+      redis:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+      keycloak:
+        condition: service_started
+  redis:
+    image: "redis:latest"
+    volumes:
+      - redis-volume:/data
+    ports:
+      - "6379:6379"
+  mysql:
+    image: "mysql:latest"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    depends_on:
+      - redis
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    volumes:
+      - rabbitmq-volume:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    depends_on:
+      - mysql
+  keycloak:
+    image: "quay.io/keycloak/keycloak:latest"
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+    volumes:
+      - ./etc/keycloak/data/:/opt/keycloak/data/
+    command: start-dev
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - rabbitmq
+
+volumes:
+  redis-volume:
+    external: true
+    name: redis-volume
+  mysql-volume:
+    external: true
+    name: mysql-volume
+  rabbitmq-volume:
+    external: true
+    name: rabbitmq-volume

@@ -1,0 +1,1321 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Go-Rocks is a tech playground with Go, Gin",
+        "title": "Swagger Go-Rocks",
+        "contact": {
+            "name": "Lingga Edo",
+            "url": "http://www.github.com/linggaaskaedo",
+            "email": "lemp.otis@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/division": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get division with param",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Division"
+                ],
+                "summary": "Get list of division based on query params",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "must-revalidate",
+                            "must-db-revalidate"
+                        ],
+                        "type": "string",
+                        "description": "Request cache control",
+                        "name": "Cache-Control",
+                        "in": "header"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "description": "Search by Division Public ID",
+                        "name": "public_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Division name. use % for wildcard search.",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "false",
+                            "true"
+                        ],
+                        "type": "string",
+                        "description": "Search by deleted status",
+                        "name": "is_deleted",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "id",
+                            "-id",
+                            "name",
+                            "-name",
+                            "created_at",
+                            "-created_at"
+                        ],
+                        "type": "string",
+                        "default": "-created_at",
+                        "description": "Sort result by these attributes",
+                        "name": "sort_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": " ",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": " ",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPDivisionsResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for creating a new division",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Division"
+                ],
+                "summary": "Create division",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Payload create division",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.DivisionCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPDivisionResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/division/{divisionID}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get a division with ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Division"
+                ],
+                "summary": "Get division by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Division ID",
+                        "name": "divisionID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPDivisionResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get a employee with param",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get list of employee based on query params",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "must-revalidate",
+                            "must-db-revalidate"
+                        ],
+                        "type": "string",
+                        "description": "Request cache control",
+                        "name": "Cache-Control",
+                        "in": "header"
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "description": "Search by Employee Public ID",
+                        "name": "public_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Employee first name",
+                        "name": "first_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search by Employee last name",
+                        "name": "last_name",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "M",
+                            "F"
+                        ],
+                        "type": "string",
+                        "description": "Search by Employee gender",
+                        "name": "gender",
+                        "in": "query"
+                    },
+                    {
+                        "enum": [
+                            "id",
+                            "-id",
+                            "firstname",
+                            "-firstname",
+                            "lastname",
+                            "-lastname",
+                            "gender",
+                            "-gender"
+                        ],
+                        "type": "string",
+                        "default": "id",
+                        "description": "Sort result by these attributes",
+                        "name": "sort_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": " ",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": " ",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPEmployeesResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/{employeeID}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get a employee with ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get employee by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Employee ID",
+                        "name": "employeeID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPEmployeeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/kc/employee/{employeeID}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get a employee with ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "KC"
+                ],
+                "summary": "Get employee by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Employee ID",
+                        "name": "employeeID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPEmployeeResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/kc/login": {
+            "post": {
+                "description": "Endpoint for generating access token for user via keycloak",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "KC"
+                ],
+                "summary": "Keycloak Login",
+                "parameters": [
+                    {
+                        "description": "Payload user login",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.UserLoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserLoginResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for creating a new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Payload create user",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.UserCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "description": "Endpoint for generating access token for user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login user",
+                "parameters": [
+                    {
+                        "description": "Payload user login",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.UserLoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserLoginResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint user for logging out",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "User logout",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Payload user logout",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.UserLogoutRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserLogoutResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/relog": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint user for renewing access token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "User relog",
+                "parameters": [
+                    {
+                        "description": "Payload user logout",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/rest.UserRelogRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserLoginResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{userID}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Endpoint for get a user with ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "userID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPUserResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest.HTTPErrResp"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.DivisionDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "isDeleted": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.EmployeeDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "firstname": {
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "lastname": {
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "gender": {
+                    "type": "string",
+                    "x-order": "3"
+                }
+            }
+        },
+        "dto.Meta": {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "status_code": {
+                    "type": "integer",
+                    "x-order": "1"
+                },
+                "status": {
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "message": {
+                    "type": "string",
+                    "x-order": "3"
+                },
+                "error": {
+                    "type": "object",
+                    "x-order": "4"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "x-order": "5"
+                }
+            }
+        },
+        "dto.UserDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "username": {
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "email": {
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "phone": {
+                    "type": "string",
+                    "x-order": "3"
+                },
+                "isDeleted": {
+                    "type": "boolean",
+                    "x-order": "5"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserLoginDTO": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "expiresAt": {
+                    "type": "integer",
+                    "x-order": "2"
+                },
+                "expiresRt": {
+                    "type": "integer",
+                    "x-order": "3"
+                },
+                "expiresIn": {
+                    "type": "integer",
+                    "x-order": "4"
+                }
+            }
+        },
+        "dto.UserLogoutDTO": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "x-order": "0"
+                }
+            }
+        },
+        "entity.Pagination": {
+            "type": "object",
+            "properties": {
+                "current_elements": {
+                    "type": "integer"
+                },
+                "current_page": {
+                    "type": "integer"
+                },
+                "cursor_end": {
+                    "type": "string"
+                },
+                "cursor_start": {
+                    "type": "string"
+                },
+                "sort_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "total_elements": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "rest.CreateDivisionData": {
+            "type": "object",
+            "properties": {
+                "division": {
+                    "$ref": "#/definitions/rest.DivisionDataPayload"
+                }
+            }
+        },
+        "rest.CreateUserData": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/rest.UserDataPayload"
+                }
+            }
+        },
+        "rest.DivisionCreateRequest": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.CreateDivisionData"
+                }
+            }
+        },
+        "rest.DivisionData": {
+            "type": "object",
+            "properties": {
+                "division": {
+                    "$ref": "#/definitions/dto.DivisionDTO"
+                }
+            }
+        },
+        "rest.DivisionDataPayload": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "rest.DivisionsData": {
+            "type": "object",
+            "properties": {
+                "divisions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.DivisionDTO"
+                    }
+                }
+            }
+        },
+        "rest.EmployeeData": {
+            "type": "object",
+            "properties": {
+                "employee": {
+                    "$ref": "#/definitions/dto.EmployeeDTO"
+                }
+            }
+        },
+        "rest.EmployeesData": {
+            "type": "object",
+            "properties": {
+                "employees": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.EmployeeDTO"
+                    }
+                }
+            }
+        },
+        "rest.HTTPDivisionResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.DivisionData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.HTTPDivisionsResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.DivisionsData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/entity.Pagination"
+                }
+            }
+        },
+        "rest.HTTPEmployeeResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.EmployeeData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.HTTPEmployeesResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.EmployeesData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                },
+                "pagination": {
+                    "$ref": "#/definitions/entity.Pagination"
+                }
+            }
+        },
+        "rest.HTTPErrResp": {
+            "type": "object",
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.HTTPUserLoginResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.UserLoginData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.HTTPUserLogoutResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.UserLogoutData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.HTTPUserResp": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.UserData"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/dto.Meta"
+                }
+            }
+        },
+        "rest.LoginUserData": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/rest.UserLoginDataPayload"
+                }
+            }
+        },
+        "rest.LogoutUserData": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/rest.UserLogoutDataPayload"
+                }
+            }
+        },
+        "rest.RelogUserData": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/rest.UserRelogDataPayload"
+                }
+            }
+        },
+        "rest.UserCreateRequest": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.CreateUserData"
+                }
+            }
+        },
+        "rest.UserData": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/dto.UserDTO"
+                }
+            }
+        },
+        "rest.UserDataPayload": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "x-order": "0"
+                },
+                "email": {
+                    "type": "string",
+                    "x-order": "1"
+                },
+                "phone": {
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "divisionID": {
+                    "type": "string",
+                    "x-order": "3"
+                },
+                "password": {
+                    "type": "string",
+                    "x-order": "4"
+                }
+            }
+        },
+        "rest.UserLoginData": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "$ref": "#/definitions/dto.UserLoginDTO"
+                }
+            }
+        },
+        "rest.UserLoginDataPayload": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "x-order": "0",
+                    "example": "ahmad"
+                },
+                "password": {
+                    "type": "string",
+                    "x-order": "1",
+                    "example": "sahroni"
+                }
+            }
+        },
+        "rest.UserLoginRequest": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.LoginUserData"
+                }
+            }
+        },
+        "rest.UserLogoutData": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/dto.UserLogoutDTO"
+                }
+            }
+        },
+        "rest.UserLogoutDataPayload": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "rest.UserLogoutRequest": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.LogoutUserData"
+                }
+            }
+        },
+        "rest.UserRelogDataPayload": {
+            "type": "object",
+            "properties": {
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "rest.UserRelogRequest": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/rest.RelogUserData"
+                }
+            }
+        }
+    }
+}

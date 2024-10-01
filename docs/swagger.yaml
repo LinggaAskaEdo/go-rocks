@@ -1,0 +1,871 @@
+definitions:
+  dto.DivisionDTO:
+    properties:
+      id:
+        type: string
+      isDeleted:
+        type: boolean
+      name:
+        type: string
+    type: object
+  dto.EmployeeDTO:
+    properties:
+      firstname:
+        type: string
+        x-order: "1"
+      gender:
+        type: string
+        x-order: "3"
+      id:
+        type: string
+        x-order: "0"
+      lastname:
+        type: string
+        x-order: "2"
+    type: object
+  dto.Meta:
+    properties:
+      error:
+        type: object
+        x-order: "4"
+      message:
+        type: string
+        x-order: "3"
+      path:
+        type: string
+        x-order: "0"
+      status:
+        type: string
+        x-order: "2"
+      status_code:
+        type: integer
+        x-order: "1"
+      timestamp:
+        type: string
+        x-order: "5"
+    type: object
+  dto.UserDTO:
+    properties:
+      email:
+        type: string
+        x-order: "2"
+      id:
+        type: string
+        x-order: "0"
+      isDeleted:
+        type: boolean
+        x-order: "5"
+      message:
+        type: string
+      phone:
+        type: string
+        x-order: "3"
+      username:
+        type: string
+        x-order: "1"
+    type: object
+  dto.UserLoginDTO:
+    properties:
+      accessToken:
+        type: string
+        x-order: "0"
+      expiresAt:
+        type: integer
+        x-order: "2"
+      expiresIn:
+        type: integer
+        x-order: "4"
+      expiresRt:
+        type: integer
+        x-order: "3"
+      refreshToken:
+        type: string
+        x-order: "1"
+    type: object
+  dto.UserLogoutDTO:
+    properties:
+      message:
+        type: string
+        x-order: "0"
+    type: object
+  entity.Pagination:
+    properties:
+      current_elements:
+        type: integer
+      current_page:
+        type: integer
+      cursor_end:
+        type: string
+      cursor_start:
+        type: string
+      sort_by:
+        items:
+          type: string
+        type: array
+      total_elements:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  rest.CreateDivisionData:
+    properties:
+      division:
+        $ref: '#/definitions/rest.DivisionDataPayload'
+    type: object
+  rest.CreateUserData:
+    properties:
+      user:
+        $ref: '#/definitions/rest.UserDataPayload'
+    type: object
+  rest.DivisionCreateRequest:
+    properties:
+      data:
+        $ref: '#/definitions/rest.CreateDivisionData'
+    type: object
+  rest.DivisionData:
+    properties:
+      division:
+        $ref: '#/definitions/dto.DivisionDTO'
+    type: object
+  rest.DivisionDataPayload:
+    properties:
+      name:
+        type: string
+    type: object
+  rest.DivisionsData:
+    properties:
+      divisions:
+        items:
+          $ref: '#/definitions/dto.DivisionDTO'
+        type: array
+    type: object
+  rest.EmployeeData:
+    properties:
+      employee:
+        $ref: '#/definitions/dto.EmployeeDTO'
+    type: object
+  rest.EmployeesData:
+    properties:
+      employees:
+        items:
+          $ref: '#/definitions/dto.EmployeeDTO'
+        type: array
+    type: object
+  rest.HTTPDivisionResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.DivisionData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.HTTPDivisionsResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.DivisionsData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+      pagination:
+        $ref: '#/definitions/entity.Pagination'
+    type: object
+  rest.HTTPEmployeeResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.EmployeeData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.HTTPEmployeesResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.EmployeesData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+      pagination:
+        $ref: '#/definitions/entity.Pagination'
+    type: object
+  rest.HTTPErrResp:
+    properties:
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.HTTPUserLoginResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.UserLoginData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.HTTPUserLogoutResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.UserLogoutData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.HTTPUserResp:
+    properties:
+      data:
+        $ref: '#/definitions/rest.UserData'
+      metadata:
+        $ref: '#/definitions/dto.Meta'
+    type: object
+  rest.LoginUserData:
+    properties:
+      user:
+        $ref: '#/definitions/rest.UserLoginDataPayload'
+    type: object
+  rest.LogoutUserData:
+    properties:
+      user:
+        $ref: '#/definitions/rest.UserLogoutDataPayload'
+    type: object
+  rest.RelogUserData:
+    properties:
+      user:
+        $ref: '#/definitions/rest.UserRelogDataPayload'
+    type: object
+  rest.UserCreateRequest:
+    properties:
+      data:
+        $ref: '#/definitions/rest.CreateUserData'
+    type: object
+  rest.UserData:
+    properties:
+      user:
+        $ref: '#/definitions/dto.UserDTO'
+    type: object
+  rest.UserDataPayload:
+    properties:
+      divisionID:
+        type: string
+        x-order: "3"
+      email:
+        type: string
+        x-order: "1"
+      password:
+        type: string
+        x-order: "4"
+      phone:
+        type: string
+        x-order: "2"
+      username:
+        type: string
+        x-order: "0"
+    type: object
+  rest.UserLoginData:
+    properties:
+      token:
+        $ref: '#/definitions/dto.UserLoginDTO'
+    type: object
+  rest.UserLoginDataPayload:
+    properties:
+      password:
+        example: sahroni
+        type: string
+        x-order: "1"
+      username:
+        example: ahmad
+        type: string
+        x-order: "0"
+    type: object
+  rest.UserLoginRequest:
+    properties:
+      data:
+        $ref: '#/definitions/rest.LoginUserData'
+    type: object
+  rest.UserLogoutData:
+    properties:
+      data:
+        $ref: '#/definitions/dto.UserLogoutDTO'
+    type: object
+  rest.UserLogoutDataPayload:
+    properties:
+      username:
+        type: string
+    type: object
+  rest.UserLogoutRequest:
+    properties:
+      data:
+        $ref: '#/definitions/rest.LogoutUserData'
+    type: object
+  rest.UserRelogDataPayload:
+    properties:
+      refreshToken:
+        type: string
+    type: object
+  rest.UserRelogRequest:
+    properties:
+      data:
+        $ref: '#/definitions/rest.RelogUserData'
+    type: object
+info:
+  contact:
+    email: lemp.otis@gmail.com
+    name: Lingga Edo
+    url: http://www.github.com/linggaaskaedo
+  description: Go-Rocks is a tech playground with Go, Gin
+  title: Swagger Go-Rocks
+  version: "1.0"
+paths:
+  /division:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get division with param
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Request cache control
+        enum:
+        - must-revalidate
+        - must-db-revalidate
+        in: header
+        name: Cache-Control
+        type: string
+      - collectionFormat: multi
+        description: Search by Division Public ID
+        in: query
+        items:
+          type: string
+        name: public_id
+        type: array
+      - description: Search by Division name. use % for wildcard search.
+        in: query
+        name: name
+        type: string
+      - description: Search by deleted status
+        enum:
+        - "false"
+        - "true"
+        in: query
+        name: is_deleted
+        type: string
+      - default: -created_at
+        description: Sort result by these attributes
+        enum:
+        - id
+        - -id
+        - name
+        - -name
+        - created_at
+        - -created_at
+        in: query
+        name: sort_by
+        type: string
+      - description: ' '
+        in: query
+        name: page
+        type: string
+      - description: ' '
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPDivisionsResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get list of division based on query params
+      tags:
+      - Division
+    post:
+      consumes:
+      - application/json
+      description: Endpoint for creating a new division
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payload create division
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.DivisionCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.HTTPDivisionResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "429":
+          description: Too Many Requests
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Create division
+      tags:
+      - Division
+  /division/{divisionID}:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get a division with ID
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Division ID
+        in: path
+        name: divisionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPDivisionResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get division by ID
+      tags:
+      - Division
+  /employee:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get a employee with param
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Request cache control
+        enum:
+        - must-revalidate
+        - must-db-revalidate
+        in: header
+        name: Cache-Control
+        type: string
+      - collectionFormat: multi
+        description: Search by Employee Public ID
+        in: query
+        items:
+          type: string
+        name: public_id
+        type: array
+      - description: Search by Employee first name
+        in: query
+        name: first_name
+        type: string
+      - description: Search by Employee last name
+        in: query
+        name: last_name
+        type: string
+      - description: Search by Employee gender
+        enum:
+        - M
+        - F
+        in: query
+        name: gender
+        type: string
+      - default: id
+        description: Sort result by these attributes
+        enum:
+        - id
+        - -id
+        - firstname
+        - -firstname
+        - lastname
+        - -lastname
+        - gender
+        - -gender
+        in: query
+        name: sort_by
+        type: string
+      - description: ' '
+        in: query
+        name: page
+        type: string
+      - description: ' '
+        in: query
+        name: limit
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPEmployeesResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get list of employee based on query params
+      tags:
+      - Employee
+  /employee/{employeeID}:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get a employee with ID
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Employee ID
+        in: path
+        name: employeeID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPEmployeeResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get employee by ID
+      tags:
+      - Employee
+  /kc/employee/{employeeID}:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get a employee with ID
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Employee ID
+        in: path
+        name: employeeID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPEmployeeResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get employee by ID
+      tags:
+      - KC
+  /kc/login:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint for generating access token for user via keycloak
+      parameters:
+      - description: Payload user login
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPUserLoginResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      summary: Keycloak Login
+      tags:
+      - KC
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint for creating a new user
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payload create user
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rest.HTTPUserResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "429":
+          description: Too Many Requests
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Create user
+      tags:
+      - User
+  /user/{userID}:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint for get a user with ID
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: userID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPUserResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user by ID
+      tags:
+      - User
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint for generating access token for user
+      parameters:
+      - description: Payload user login
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UserLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPUserLoginResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      summary: Login user
+      tags:
+      - User
+  /user/logout:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint user for logging out
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payload user logout
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UserLogoutRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPUserLogoutResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: User logout
+      tags:
+      - User
+  /user/relog:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint user for renewing access token
+      parameters:
+      - description: Payload user logout
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/rest.UserRelogRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.HTTPUserLoginResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.HTTPErrResp'
+      security:
+      - ApiKeyAuth: []
+      summary: User relog
+      tags:
+      - User
+swagger: "2.0"
